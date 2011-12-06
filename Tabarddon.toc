@@ -1,0 +1,9 @@
+## Interface: 40200
+## Title: Tabarddon
+## Notes: Warns the user if they're wearing a simply artificial tabard when in a dungeons.
+## Author: Cartas @ GrimBatol
+
+vo\ReputationColours.lua
+vo\FactionsTabards.lua
+Tabarddon.xml
+options\Options.lua
