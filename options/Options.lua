@@ -8,6 +8,8 @@ local reputationColours = ns.reputationColours
 
 local BAR_SPACING = 30
 
+local factionRanking = {}
+
 local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
 frame.name = "Tabarddon"
 frame:Hide()
@@ -24,8 +26,10 @@ local _BACKDROP = {
 	insets = {left = 4, right = 4, top = 4, bottom = 4}
 }
 
-local createFactionBar = function(parent, factionName, factionStandingID)
-    local bar = CreateFrame("Frame", nil, parent)
+local createFactionBar = function(parent, factionName, factionStandingID, ranking)
+    factionRanking[ranking] = factionName
+
+    local bar = CreateFrame("Frame", factionName, parent)
     bar:SetSize(300, 24)
     bar:SetBackdrop(_BACKDROP)
 
@@ -44,7 +48,16 @@ local createFactionBar = function(parent, factionName, factionStandingID)
     upRank:SetText("U");
     upRank:SetScript("OnClick", function(self, button)
         local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
+        -- Too high up?  Don't go anywhere!
+        if ranking == 1 then
+            return
+        end
+
+        -- get the bar with name factionRanking[ranking - 1] somehow!
+        --local barToSwapWith 
+        
         bar:SetPoint("TOPLEFT", 16, yOffset + BAR_SPACING)
+        print(factionRanking[ranking - 1])
     end)
 
     local downRank = CreateFrame("Button", "downRank", parent, "UIPanelButtonTemplate")
@@ -55,7 +68,6 @@ local createFactionBar = function(parent, factionName, factionStandingID)
         local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
         bar:SetPoint("TOPLEFT", 16, yOffset - BAR_SPACING)
     end)
-
 
     return bar
 end
@@ -84,23 +96,26 @@ function frame:CreateOptions()
     
     -- List guild & all factions with rep.
     local yOffset = 0
+    local ranking = 1
 
     local guildName, _, guildStandingID = GetGuildFactionInfo()
 
     if (guildName) then
-        local guildRow = createFactionBar(scrollchild, guildName, guildStandingID)
+        local guildRow = createFactionBar(scrollchild, guildName, guildStandingID, ranking)
         guildRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
         yOffset = yOffset + BAR_SPACING
+        ranking = ranking + 1
     end
 
     for factionID, tabardID in pairs(factions) do
         local factionName, _, factionStandingID = GetFactionInfoByID(factionID)
 
-        local factionRow = createFactionBar(scrollchild, factionName, factionStandingID)
+        local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
         factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
         yOffset = yOffset + BAR_SPACING
+        ranking = ranking + 1
     end
 
 	scrollchild:SetHeight(yOffset + BAR_SPACING)
