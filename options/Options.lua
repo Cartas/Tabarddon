@@ -43,7 +43,7 @@ local createFactionBar = function(parent, factionName, factionStandingID)
     upRank:SetPoint("TOPRIGHT", bar, 10, 0)
     upRank:SetText("U");
     upRank:SetScript("OnClick", function(self, button)
-        local point, relativeTo, relativePoint,xOffset, yOffset = bar:GetPoint(1)
+        local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
         bar:SetPoint("TOPLEFT", 16, yOffset + BAR_SPACING)
     end)
 
@@ -52,7 +52,7 @@ local createFactionBar = function(parent, factionName, factionStandingID)
     downRank:SetPoint("TOPRIGHT", bar, 10, -12)
     downRank:SetText("D")
     downRank:SetScript("OnClick", function(self, button)
-        local point, relativeTo, relativePoint,xOffset, yOffset = bar:GetPoint(1)
+        local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
         bar:SetPoint("TOPLEFT", 16, yOffset - BAR_SPACING)
     end)
 
