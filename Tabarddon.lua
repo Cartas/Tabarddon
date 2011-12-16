@@ -8,10 +8,27 @@ local EquipItemByName = EquipItemByName
 
 local factions = ns.factions
 
--- UI Elements from XML
-local frame = Tabarddon_Frame
-local textArea = Tabarddon_Frame_Messages
-local equipButton = Tabarddon_Frame_Suggested_Tabard
+local _BACKDROP = {
+    bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
+    edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]],
+    tile = true, tileSize = 8, edgeSize = 16,
+    insets = {left = 4, right = 4, top = 4, bottom = 4}
+}
+
+local frame = CreateFrame("Frame", nil, UIParent, InterfaceOptionsFramePanelContainer)
+frame:SetSize(400, 65)
+frame:SetPoint("LEFT")
+frame:SetBackdrop(_BACKDROP)
+frame:SetBackdropColor(0.3, 0.3, 0.3, 1.0)
+frame:SetBackdropBorderColor(0.3, 0.3, 0.5)
+
+local textArea = frame:CreateFontString(nil, nil)
+textArea:SetFont("Fonts\\ARIALN.TTF", 12)
+textArea:SetPoint("TOP", 0, -10)
+
+local equipButton = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+equipButton:SetPoint("BOTTOM", 0, 10)
+equipButton:SetSize(100, 22)
 
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
