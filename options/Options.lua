@@ -27,11 +27,12 @@ local _BACKDROP = {
 }
 
 local createFactionBar = function(parent, factionName, factionStandingID, ranking)
-    factionRanking[ranking] = factionName
-
     local bar = CreateFrame("Frame", factionName, parent)
     bar:SetSize(300, 24)
     bar:SetBackdrop(_BACKDROP)
+
+    factionRanking[ranking] = bar
+
 
     local colours = reputationColours[factionStandingID]
     
@@ -57,7 +58,10 @@ local createFactionBar = function(parent, factionName, factionStandingID, rankin
         --local barToSwapWith 
         
         bar:SetPoint("TOPLEFT", 16, yOffset + BAR_SPACING)
-        print(factionRanking[ranking - 1])
+        barToSwap = factionRanking[ranking - 1]
+        local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
+        barToSwap:SetPoint("TOPLEFT", 16, yOffset - BAR_SPACING)
+
     end)
 
     local downRank = CreateFrame("Button", "downRank", parent, "UIPanelButtonTemplate")
