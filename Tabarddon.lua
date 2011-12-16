@@ -19,8 +19,8 @@ local frame = CreateFrame("Frame", nil, UIParent, InterfaceOptionsFramePanelCont
 frame:SetSize(400, 65)
 frame:SetPoint("LEFT")
 frame:SetBackdrop(_BACKDROP)
-frame:SetBackdropColor(0.3, 0.3, 0.3, 1.0)
-frame:SetBackdropBorderColor(0.3, 0.3, 0.5)
+frame:SetBackdropColor(0.2, 0.2, 0.2, 0.8)
+frame:SetBackdropBorderColor(0.5, 0.5, 0.5)
 
 local textArea = frame:CreateFontString(nil, nil)
 textArea:SetFont("Fonts\\ARIALN.TTF", 12)
