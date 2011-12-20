@@ -8,7 +8,9 @@ local reputationColours = ns.reputationColours
 
 local BAR_SPACING = 30
 
-local factionRanking = {}
+local factionBars = {}
+
+local initialRun = true
 
 local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
 frame.name = "Tabarddon"
@@ -26,13 +28,63 @@ local _BACKDROP = {
 	insets = {left = 4, right = 4, top = 4, bottom = 4}
 }
 
-local createFactionBar = function(parent, factionName, factionStandingID, ranking)
+table.indexOf = function( t, object )
+    local result
+
+    if "table" == type( t ) then
+        for i=1,#t do
+            if object == t[i] then
+                result = i
+                break
+            end
+        end
+    end
+
+    return result
+end
+
+local function adjustFactionRanking(bar, downwards)
+    local ranking = table.indexOf(factionBars, bar)
+    local limit = 1
+    if downwards then
+        limit = table.getn(factionBars)
+    end
+    -- Too high up/down?  Don't go anywhere!
+    if ranking == limit then
+        return
+    end
+
+    local replaceRank = ranking - 1
+    if downwards then
+        replaceRank = ranking + 1
+    end
+
+    -- Swap the two factions' bars around in the display
+    barToReplace = factionBars[replaceRank]
+
+    local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
+    local point, relativeTo, relativePoint, xOffset, replaceYOffset = barToReplace:GetPoint(1)
+
+    if downwards then
+        bar:SetPoint("TOPLEFT", 16, yOffset - BAR_SPACING)
+        barToReplace:SetPoint("TOPLEFT", 16, replaceYOffset + BAR_SPACING)
+    else
+        bar:SetPoint("TOPLEFT", 16, yOffset + BAR_SPACING)
+        barToReplace:SetPoint("TOPLEFT", 16, replaceYOffset - BAR_SPACING)
+    end
+
+    factionBars[replaceRank], factionBars[ranking] = factionBars[ranking], factionBars[replaceRank]
+    
+    -- Swap the two factions' ranks in the table
+    FactionRanking[replaceRank], FactionRanking[ranking] = FactionRanking[ranking], FactionRanking[replaceRank]
+end
+
+local function createFactionBar(parent, factionName, factionStandingID, rank)
     local bar = CreateFrame("Frame", factionName, parent)
     bar:SetSize(300, 24)
     bar:SetBackdrop(_BACKDROP)
 
-    factionRanking[ranking] = bar
-
+    factionBars[rank] = bar
 
     local colours = reputationColours[factionStandingID]
     
@@ -47,36 +99,25 @@ local createFactionBar = function(parent, factionName, factionStandingID, rankin
     upRank:SetSize(10, 12)
     upRank:SetPoint("TOPRIGHT", bar, 10, 0)
     upRank:SetText("U");
-    upRank:SetScript("OnClick", function(self, button)
-        local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
-        -- Too high up?  Don't go anywhere!
-        if ranking == 1 then
-            return
-        end
-
-        -- get the bar with name factionRanking[ranking - 1] somehow!
-        --local barToSwapWith 
-        
-        bar:SetPoint("TOPLEFT", 16, yOffset + BAR_SPACING)
-        barToSwap = factionRanking[ranking - 1]
-        local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
-        barToSwap:SetPoint("TOPLEFT", 16, yOffset - BAR_SPACING)
-
-    end)
+    upRank:SetScript("OnClick", function(self, button) adjustFactionRanking(bar, false) end)
 
     local downRank = CreateFrame("Button", "downRank", parent, "UIPanelButtonTemplate")
     downRank:SetSize(10, 12)
     downRank:SetPoint("TOPRIGHT", bar, 10, -12)
     downRank:SetText("D")
-    downRank:SetScript("OnClick", function(self, button)
-        local point, relativeTo, relativePoint, xOffset, yOffset = bar:GetPoint(1)
-        bar:SetPoint("TOPLEFT", 16, yOffset - BAR_SPACING)
-    end)
+    downRank:SetScript("OnClick", function(self, button) adjustFactionRanking(bar, true) end)
 
     return bar
 end
 
 function frame:CreateOptions()
+    if FactionRanking then
+        initialRun = false
+        factions = FactionRanking
+    else
+        FactionRanking = {}
+    end
+
     local title = self:CreateFontString(nil, nil, "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", 16, -16)
     title:SetText("Tabarddon")
@@ -102,17 +143,20 @@ function frame:CreateOptions()
     local yOffset = 0
     local ranking = 1
 
-    local guildName, _, guildStandingID = GetGuildFactionInfo()
+    --local guildName, _, guildStandingID = GetGuildFactionInfo()
 
-    if (guildName) then
-        local guildRow = createFactionBar(scrollchild, guildName, guildStandingID, ranking)
-        guildRow:SetPoint("TOPLEFT", 16, (-yOffset))
+    --if (guildName) then
+    --   local guildRow = createFactionBar(scrollchild, guildName, guildStandingID, ranking)
+    --    guildRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
-        yOffset = yOffset + BAR_SPACING
-        ranking = ranking + 1
-    end
+    --    yOffset = yOffset + BAR_SPACING
+    --    ranking = ranking + 1
+    --end
 
-    for factionID, tabardID in pairs(factions) do
+    for i, factionTabardObject in ipairs(FactionRanking) do
+        local factionID = factionTabardObject[1]
+        local tabardID = factionTabardObject[2]
+
         local factionName, _, factionStandingID = GetFactionInfoByID(factionID)
 
         local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
@@ -135,6 +179,7 @@ end
 
 InterfaceOptions_AddCategory(frame)
 
+-- Opens options window on /tabarddon command
 SLASH_TABARDDON_UI1 = '/tabarddon'
 SlashCmdList['TABARDDON_UI'] = function()
 	InterfaceOptionsFrame_OpenToCategory('Tabarddon')

@@ -32,9 +32,14 @@ equipButton:SetSize(100, 22)
 
 frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 
+local wantedFactionName
+local wantedTabardID
+
 local function showUI(self)
     frame:Show()
     textArea:Show()
+
+    equipButton:SetText(wantedFactionName)
     equipButton:Show()
 end
 
@@ -44,16 +49,28 @@ local function hideUI(self)
     equipButton:Hide()
 end
 
-local function showOrHideUI(self, event, ...)
+local function showOrHideUI(self, event, ...)    
+    if not FactionRanking then
+        FactionRanking = factions
+    end
+
     local _, type = GetInstanceInfo()
     
     if (type == "party" or type == "raid") then
         local equippedTabardID = GetInventoryItemID("player", 19)
-        for factionID, tabardID in pairs(factions) do
+        for i, factionTabardObject in ipairs(FactionRanking) do
+            local factionID = factionTabardObject[1]
+            local tabardID = factionTabardObject[2]
+            
             local factionName, _, factionStandingID = GetFactionInfoByID(factionID)
             if (equippedTabardID == tabardID and factionStandingID < 8) then
                 hideUI()
                 return
+            end
+
+            if not wantedFactionName and factionStandingID < 8 then
+                wantedFactionName = factionName
+                wantedTabardID = tabardID
             end
         end
 
@@ -68,7 +85,7 @@ frame:SetScript("OnEvent", showOrHideUI)
 
 local function equipTabard(self, mouseButton)
     if (mouseButton == "LeftButton") then
-        EquipItemByName(earthenRingTabardID)
+        EquipItemByName(wantedTabardID)
         hideUI()
     end
 end
