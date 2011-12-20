@@ -3,7 +3,6 @@ local _, ns = ...
 local GetGuildFactionInfo = GetGuildFactionInfo
 local GetFactionInfoByID = GetFactionInfoByID
 
-local factions = ns.factions
 local reputationColours = ns.reputationColours
 
 local BAR_SPACING = 30
@@ -29,12 +28,10 @@ local _BACKDROP = {
 table.indexOf = function( t, object )
     local result
 
-    if "table" == type( t ) then
-        for i=1,#t do
-            if object == t[i] then
-                result = i
-                break
-            end
+    for i=1,#t do
+        if object == t[i] then
+            result = i
+            break
         end
     end
 
@@ -109,12 +106,6 @@ local function createFactionBar(parent, factionName, factionStandingID, rank)
 end
 
 function frame:CreateOptions()
-    if not FactionRanking then
-        FactionRanking = factions
-    else
-        factions = FactionRanking
-    end
-
     local title = self:CreateFontString(nil, nil, "GameFontNormalLarge")
     title:SetPoint("TOPLEFT", 16, -16)
     title:SetText("Tabarddon")
@@ -145,23 +136,12 @@ function frame:CreateOptions()
 
         local factionName, _, factionStandingID, _, _, _, atWarWith, canToggleAtWar = GetFactionInfoByID(factionID)
 
-        -- Only show factions we can possible befriend
-        if not (atWarWith and not canToggleAtWar) then
-            local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
-            factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
+        local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
+        factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
-            yOffset = yOffset + BAR_SPACING
-            ranking = ranking + 1
-        else
-            -- Remove unwanted factions
-            local factionIndex = table.indexOf(factions, factionTabardObject)
-            if factionIndex then
-                table.remove(factions, factionIndex)
-            end
-        end
+        yOffset = yOffset + BAR_SPACING
+        ranking = ranking + 1
     end
-
-    FactionRanking = factions
 
 	scrollchild:SetHeight(yOffset + BAR_SPACING)
 	scroll:UpdateScrollChildRect()
