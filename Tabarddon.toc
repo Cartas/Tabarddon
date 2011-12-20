@@ -2,7 +2,7 @@
 ## Title: Tabarddon
 ## Notes: Warns the user if they're wearing a simply artificial tabard when in a dungeons.
 ## Author: Cartas @ GrimBatol
-## SavedVariables: FactionRanking
+## SavedVariablesPerCharacter: FactionRanking
 
 vo\ReputationColours.lua
 vo\FactionsTabards.lua
