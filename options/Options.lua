@@ -10,8 +10,6 @@ local BAR_SPACING = 30
 
 local factionBars = {}
 
-local initialRun = true
-
 local frame = CreateFrame("Frame", nil, InterfaceOptionsFramePanelContainer)
 frame.name = "Tabarddon"
 frame:Hide()
@@ -111,11 +109,10 @@ local function createFactionBar(parent, factionName, factionStandingID, rank)
 end
 
 function frame:CreateOptions()
-    if FactionRanking then
-        initialRun = false
-        factions = FactionRanking
+    if not FactionRanking then
+        FactionRanking = factions
     else
-        FactionRanking = {}
+        factions = FactionRanking
     end
 
     local title = self:CreateFontString(nil, nil, "GameFontNormalLarge")
@@ -126,7 +123,6 @@ function frame:CreateOptions()
     subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
     subtitle:SetPoint("RIGHT", self, -2, 0)
     subtitle:SetText("Prioritise your Factions!")
-
     
 	local scrollchild = CreateFrame("Frame", nil, self)
 	scrollchild:SetPoint"LEFT"
@@ -149,15 +145,23 @@ function frame:CreateOptions()
 
         local factionName, _, factionStandingID, _, _, _, atWarWith, canToggleAtWar = GetFactionInfoByID(factionID)
 
-        -- Hide factions we're not optionally at war with (e.g. opposing factions)
+        -- Only show factions we can possible befriend
         if not (atWarWith and not canToggleAtWar) then
             local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
             factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
             yOffset = yOffset + BAR_SPACING
             ranking = ranking + 1
+        else
+            -- Remove unwanted factions
+            local factionIndex = table.indexOf(factions, factionTabardObject)
+            if factionIndex then
+                table.remove(factions, factionIndex)
+            end
         end
     end
+
+    FactionRanking = factions
 
 	scrollchild:SetHeight(yOffset + BAR_SPACING)
 	scroll:UpdateScrollChildRect()
