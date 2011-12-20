@@ -74,7 +74,7 @@ local function adjustFactionRanking(bar, downwards)
     end
 
     factionBars[replaceRank], factionBars[ranking] = factionBars[ranking], factionBars[replaceRank]
-    
+
     -- Swap the two factions' ranks in the table
     FactionRanking[replaceRank], FactionRanking[ranking] = FactionRanking[ranking], FactionRanking[replaceRank]
 end
@@ -139,31 +139,24 @@ function frame:CreateOptions()
 	scroll.scrollchild = scrollchild
     scroll:SetScrollChild(scrollchild)
     
-    -- List guild & all factions with rep.
+    -- List all factions with rep.
     local yOffset = 0
     local ranking = 1
-
-    --local guildName, _, guildStandingID = GetGuildFactionInfo()
-
-    --if (guildName) then
-    --   local guildRow = createFactionBar(scrollchild, guildName, guildStandingID, ranking)
-    --    guildRow:SetPoint("TOPLEFT", 16, (-yOffset))
-
-    --    yOffset = yOffset + BAR_SPACING
-    --    ranking = ranking + 1
-    --end
 
     for i, factionTabardObject in ipairs(FactionRanking) do
         local factionID = factionTabardObject[1]
         local tabardID = factionTabardObject[2]
 
-        local factionName, _, factionStandingID = GetFactionInfoByID(factionID)
+        local factionName, _, factionStandingID, _, _, _, atWarWith, canToggleAtWar = GetFactionInfoByID(factionID)
 
-        local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
-        factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
+        -- Hide factions we're not optionally at war with (e.g. opposing factions)
+        if not (atWarWith and not canToggleAtWar) then
+            local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
+            factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
-        yOffset = yOffset + BAR_SPACING
-        ranking = ranking + 1
+            yOffset = yOffset + BAR_SPACING
+            ranking = ranking + 1
+        end
     end
 
 	scrollchild:SetHeight(yOffset + BAR_SPACING)
