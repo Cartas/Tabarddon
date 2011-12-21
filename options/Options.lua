@@ -77,7 +77,7 @@ end
 
 local function createFactionBar(parent, factionName, factionStandingID, rank)
     local bar = CreateFrame("Frame", factionName, parent)
-    bar:SetSize(300, 24)
+    bar:SetSize(300, 25)
     bar:SetBackdrop(_BACKDROP)
 
     factionBars[rank] = bar
@@ -87,13 +87,13 @@ local function createFactionBar(parent, factionName, factionStandingID, rank)
     bar:SetBackdropColor(colours[1], colours[2], colours[3], 1.0)
     bar:SetBackdropBorderColor(0.3, 0.3, 0.5)
 
-    local name = bar:CreateFontString(nil, nil, "GameFontNormal")
-    name:SetPoint("LEFT", 10, 1)
+    local name = bar:CreateFontString(nil, nil, "GameFontHighlight")
+    name:SetPoint("LEFT", 10, 0)
     name:SetText(factionName)
 
     local repLevelText = reputationNames[factionStandingID]
-    local repLevel = bar:CreateFontString(nil, nil, "GameFontNormal")
-    repLevel:SetPoint("RIGHT", -10, 1)
+    local repLevel = bar:CreateFontString(nil, nil, "GameFontHighlightSmallOutline")
+    repLevel:SetPoint("RIGHT", -10, 0)
     repLevel:SetText("(" .. repLevelText .. ")")
 
     local upRank = CreateFrame("Button", "upRank", parent, "UIPanelButtonTemplate")
