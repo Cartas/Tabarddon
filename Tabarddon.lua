@@ -38,7 +38,6 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 local wantedTabardID
 
 local function showOrHideUI(self, event, ...)   
-    print(FactionRanking)
     if not FactionRanking then
         FactionRanking = {}
 
@@ -47,11 +46,7 @@ local function showOrHideUI(self, event, ...)
             local tabardID = factionTabardObject[2]
 
             local factionName, _, factionStandingID, _, _, _, atWarWith, canToggleAtWar = GetFactionInfoByID(factionID)
-
-            print(factionName)
-            print(atWarWith)
-            print(canToggleAtWar)
-
+            
             -- Only show factions we can possible befriend
             if not (atWarWith and not canToggleAtWar) then
                 table.insert(FactionRanking, {factionID, tabardID})
