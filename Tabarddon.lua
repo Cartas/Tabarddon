@@ -1,5 +1,7 @@
 local _, ns = ...
 
+EXALTED = 8
+
 -- Assign global functions to locals for optimisation.
 local GetInventoryItemID = GetInventoryItemID
 local GetInstanceInfo = GetInstanceInfo
@@ -65,19 +67,19 @@ local function showOrHideUI(self, event, ...)
             local factionName, _, factionStandingID = GetFactionInfoByID(factionID)
 
             -- Hides the recommendation if you're already using the right tabard
-            if (equippedTabardID == tabardID and factionStandingID < 8) then
+            if (equippedTabardID == tabardID and factionStandingID < EXALTED) then
                 frame:Hide()
                 return
             end
 
-            if factionStandingID < 8 then
+            if factionStandingID < EXALTED then
                 equipButton:SetText(factionName)
                 wantedTabardID = tabardID
                 break
             end
         end
 
-        textArea:SetText("Tabard Suggestion:")
+        textArea:SetText("Tabard Suggestion")
         frame:Show()
     else
         frame:Hide()
