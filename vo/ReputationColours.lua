@@ -10,3 +10,14 @@ ns.reputationColours = {
     [7] = {0.2, 1.0, 0.0},  -- Revered
     [8] = {0.0, 1.0, 0.0}   -- Exalted
 }
+
+ns.reputationNames = {
+	"Hated",
+	"Hostile",
+	"Unfriendly",
+	"Neutral",
+	"Friendly",
+	"Honoured",
+	"Revered",
+	"Exalted"
+}

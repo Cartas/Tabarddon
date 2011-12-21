@@ -4,6 +4,7 @@ local GetGuildFactionInfo = GetGuildFactionInfo
 local GetFactionInfoByID = GetFactionInfoByID
 
 local reputationColours = ns.reputationColours
+local reputationNames = ns.reputationNames
 
 local BAR_SPACING = 30
 
@@ -87,8 +88,13 @@ local function createFactionBar(parent, factionName, factionStandingID, rank)
     bar:SetBackdropBorderColor(0.3, 0.3, 0.5)
 
     local name = bar:CreateFontString(nil, nil, "GameFontNormal")
-    name:SetPoint("TOPLEFT", 10, -5)
+    name:SetPoint("LEFT", 10, 1)
     name:SetText(factionName)
+
+    local repLevelText = reputationNames[factionStandingID]
+    local repLevel = bar:CreateFontString(nil, nil, "GameFontNormal")
+    repLevel:SetPoint("RIGHT", -10, 1)
+    repLevel:SetText("(" .. repLevelText .. ")")
 
     local upRank = CreateFrame("Button", "upRank", parent, "UIPanelButtonTemplate")
     upRank:SetSize(10, 12)
