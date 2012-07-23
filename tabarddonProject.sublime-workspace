@@ -1,0 +1,375 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"SC",
+				"SCREEN_HEIGHT"
+			],
+			[
+				"lib",
+				"libtcod"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Tabarddon.lua",
+			"settings":
+			{
+				"buffer_size": 3086,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "options/Options.lua",
+			"settings":
+			{
+				"buffer_size": 5327,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vo/FactionsTabards.lua",
+			"settings":
+			{
+				"buffer_size": 937,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "vo/ReputationColours.lua",
+			"settings":
+			{
+				"buffer_size": 484,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Tabarddon.toc",
+			"settings":
+			{
+				"buffer_size": 290,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/Games/World of Warcraft/Interface/addons/Tabarddon/vo/ReputationColours.lua",
+		"/D/Games/World of Warcraft/Interface/addons/Tabarddon/Tabarddon.xml",
+		"/F/Documents/Programming/Malc/python/Malc.py",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/F/Applications/Paper Crop/config.lua",
+		"/F/Documents/Programming/Rouge/Rouge.py",
+		"/F/xampp/apache/htdocs/index.php",
+		"/F/Documents/Programming/Rouge/libtcodpy.py",
+		"/F/Documents/Programming/Portfolio/index.html",
+		"/F/Documents/Programming/Portfolio/js/collapsables.js",
+		"/F/Documents/LindasSite/index.html",
+		"/F/Documents/Programming/Portfolio/styles/index.css",
+		"/F/Documents/LindasSite/paulirish-html5-boilerplate-5b526df/js/plugins.js",
+		"/F/Documents/LindasSite/paulirish-html5-boilerplate-5b526df/js/script.js",
+		"/C/Users/Richard/AppData/Roaming/Sublime Text 2/Packages/HTML/html_completions.py",
+		"/F/Applications/Cygwin/home/Richard/hippo/scraping/vo/carriage/Result.py"
+	],
+	"find":
+	{
+		"height": 32.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"factions",
+			", 2}",
+			", 1}",
+			"\"alliance\"",
+			"\"horde\"",
+			"wantedFactionName",
+			"\\[([0-9]*)\\] = ([0-9]*)",
+			"\\[[0-9]*\\] = \\[[0-9]*\\]",
+			"\\[",
+			"[",
+			"\\[530\\] = 45582",
+			"/[530/]",
+			"\\[530\\]",
+			"\\[530\\] \\= 45582",
+			"\\[530\\] = 45582",
+			"\\[",
+			"[",
+			"[0-9]*",
+			"\\[[0-9]*\\] = \\[[0-9]*\\]",
+			"\\[[0-9]*\\] = \\[[0-9]*\\],",
+			"\\[[0-9]*] = \\[[0-9]*\\],",
+			"factionRanking",
+			"earthenRingTabardID",
+			"earthen",
+			"firstWantedFactionName",
+			"barToSwap",
+			"Tabarddon",
+			"args",
+			"kindle",
+			"playerx",
+			"+;"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"}",
+			"",
+			"2",
+			"1",
+			"{$1, $2}",
+			"{$1",
+			"{",
+			"factionBars",
+			"wantedFactionName",
+			"barToReplace"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Tabarddon.lua",
+					"settings":
+					{
+						"buffer_size": 3086,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1391,
+								1391
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 195.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "options/Options.lua",
+					"settings":
+					{
+						"buffer_size": 5327,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1683,
+								1683
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 450.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "vo/FactionsTabards.lua",
+					"settings":
+					{
+						"buffer_size": 937,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								174,
+								177
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "vo/ReputationColours.lua",
+					"settings":
+					{
+						"buffer_size": 484,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								484,
+								484
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Tabarddon.toc",
+					"settings":
+					{
+						"buffer_size": 290,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								178,
+								190
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 60.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 152.0,
+	"status_bar_visible": true
+}

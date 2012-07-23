@@ -118,7 +118,6 @@ function frame:CreateOptions()
 
     local subtitle = self:CreateFontString(nil, nil, "GameFontHighlight")
     subtitle:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
-    subtitle:SetPoint("RIGHT", self, -2, 0)
     subtitle:SetText("Prioritise your Factions!")
     
 	local scrollchild = CreateFrame("Frame", nil, self)
@@ -142,11 +141,14 @@ function frame:CreateOptions()
 
         local factionName, _, factionStandingID, _, _, _, atWarWith, canToggleAtWar = GetFactionInfoByID(factionID)
 
-        local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
-        factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
+        -- No point showing enemy or exalted factions.
+        if not ((atWarWith and not canToggleAtWar) or factionStandingID == EXALTED) then
+            local factionRow = createFactionBar(scrollchild, factionName, factionStandingID, ranking)
+            factionRow:SetPoint("TOPLEFT", 16, (-yOffset))
 
-        yOffset = yOffset + BAR_SPACING
-        ranking = ranking + 1
+            yOffset = yOffset + BAR_SPACING
+            ranking = ranking + 1
+        end
     end
 
 	scrollchild:SetHeight(yOffset + BAR_SPACING)

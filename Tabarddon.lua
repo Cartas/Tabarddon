@@ -7,6 +7,7 @@ local GetInventoryItemID = GetInventoryItemID
 local GetInstanceInfo = GetInstanceInfo
 local GetFactionInfoByID = GetFactionInfoByID
 local EquipItemByName = EquipItemByName
+local GetItemInfo = GetItemInfo
 
 local factions = ns.factions
 
@@ -49,7 +50,7 @@ local function showOrHideUI(self, event, ...)
 
             local factionName, _, factionStandingID, _, _, _, atWarWith, canToggleAtWar = GetFactionInfoByID(factionID)
             
-            -- Only show factions we can possible befriend
+            -- Only show factions we can possibly befriend
             if not (atWarWith and not canToggleAtWar) then
                 table.insert(FactionRanking, {factionID, tabardID})
             end
@@ -96,3 +97,29 @@ local function equipTabard(self, mouseButton)
 end
 
 equipButton:SetScript("OnClick", equipTabard)
+
+
+-- Displays reputation level on tabbard's tooltips!
+local OnTooltipSetItem = function(tooltip, ...)
+  local name, item = tooltip:GetItem()
+  if (item) then
+    -- Attempt to get the item's ID
+    local found, _, itemString = string.find(item, "^|c%x+|H(.+)|h%[.*%]")
+    local _, itemID = strsplit(":", itemString)
+
+    -- If it's one of our listed tabards, display the faction rep level.
+    for i, factionTabardObject in ipairs(FactionRanking) do
+        local factionID = factionTabardObject[1]
+        local tabardID = factionTabardObject[2]
+
+        if (tabardID == tonumber(itemID)) then
+            local factionName, _, factionStandingID = GetFactionInfoByID(factionID)
+            tooltip:AddLine(ns.reputationNames[factionStandingID])
+            tooltip:Show()
+            break
+        end
+    end
+  end
+end
+
+GameTooltip:SetScript("OnTooltipSetItem", OnTooltipSetItem)
